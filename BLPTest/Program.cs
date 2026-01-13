@@ -1,10 +1,8 @@
-﻿using SkiaSharp;
-using BLPSharp;
-using System.Diagnostics;
-using SixLabors.ImageSharp.PixelFormats;
-using SixLabors.ImageSharp.Formats.Png;
+﻿using BLPSharp;
 using SixLabors.ImageSharp;
-using System.Runtime.InteropServices;
+using SixLabors.ImageSharp.PixelFormats;
+using SkiaSharp;
+using System.Diagnostics;
 
 namespace BLPTest
 {
@@ -12,7 +10,7 @@ namespace BLPTest
     {
         static void Main()
         {
-            if(!Directory.Exists("in"))
+            if (!Directory.Exists("in"))
             {
                 Console.WriteLine("Please create an 'in' directory and place your BLP files in it.");
                 return;
@@ -20,7 +18,7 @@ namespace BLPTest
 
             var testFiles = Directory.GetFiles("in");
 
-            if(Directory.Exists("out"))
+            if (Directory.Exists("out"))
                 Directory.Delete("out", true);
 
             Directory.CreateDirectory("out");
@@ -59,7 +57,7 @@ namespace BLPTest
                     using (var bitmap2 = new System.Drawing.Bitmap(w, h))
                     {
                         var bitmapData = bitmap2.LockBits(new System.Drawing.Rectangle(0, 0, bitmap2.Width, bitmap2.Height), System.Drawing.Imaging.ImageLockMode.WriteOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-                        Marshal.Copy(pixels, 0, bitmapData.Scan0, pixels.Length);
+                        System.Runtime.InteropServices.Marshal.Copy(pixels, 0, bitmapData.Scan0, pixels.Length);
                         bitmap2.UnlockBits(bitmapData);
                         bitmap2.Save($"out/{Path.GetFileNameWithoutExtension(testFile)}_sysdraw.png");
                     }
