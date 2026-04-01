@@ -60,8 +60,8 @@ namespace BLPSharp
         public readonly byte alphaSize; // 0 = no alpha, 1 = 1 Bit, 4 = Bit (only DXT3), 8 = 8 Bit Alpha
         public readonly BlpPixelFormat preferredFormat; // 0: DXT1 alpha (0 or 1 Bit alpha), 1 = DXT2/3 alpha (4 Bit), 7: DXT4/5 (interpolated alpha)
         private readonly byte hasMips; // If true (1), then there are Mipmaps
-        private readonly int width; // X Resolution of the biggest Mipmap
-        private readonly int height; // Y Resolution of the biggest Mipmap
+        public readonly int width; // X Resolution of the biggest Mipmap
+        public readonly int height; // Y Resolution of the biggest Mipmap
 
         private readonly uint[] mipOffsets = new uint[16]; // Offset for every Mipmap level. If 0 = no more mitmap level
         private readonly uint[] mipSizes = new uint[16]; // Size for every level
@@ -119,7 +119,7 @@ namespace BLPSharp
         /// <param name="width"></param>
         /// <param name="height"></param>
         /// <returns></returns>
-        private byte[] GetPictureData(int mipmapLevel, int width = 0, int height = 0)
+        public byte[] GetPictureData(int mipmapLevel, int width = 0, int height = 0)
         {
             if (stream != null)
             {
