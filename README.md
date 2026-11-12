@@ -1,6 +1,6 @@
 BLPSharp (formerly known as SereniaBLPLib)
 =============
-.NET 8.0+ library for decoding BLP textures. Uses TinyBCSharp for fast texture decompression.
+.NET library for decoding BLP textures. Uses TinyBCSharp for fast texture decompression.
 
 Initially created under the name of SereniaBLPLib by Xalcon & later maintained by hazzik & tomrus88. 
 
@@ -38,4 +38,10 @@ Due to not relying on any specific image library anymore, support for BLPs conta
     using var pixmap = bitmap.PeekPixels();
     var data = pixmap.GetPixelSpan<byte>();
     pixels.CopyTo(data);
+```
+
+### NetVips
+```csharp
+    using var raw = Image.NewFromMemory(pixels, w, h, 4, Enums.BandFormat.Uchar);
+    using var image = raw[2].Bandjoin([raw[1], raw[0], raw[3]]).Copy(interpretation: Enums.Interpretation.Srgb);
 ```
